@@ -13,11 +13,13 @@ const pridePrejudice = new Book("Pride and Prejudice", "Jane Austen", 496, false
 
 //pop up form display
 function openForm() {
-    document.getElementById("popup").style.display = "block";
+    document.getElementById("pop-up").classList.toggle("form-show");
+    document.getElementById("form-bg").style.display = "block";
 }
 
 function closeForm() {
-    document.getElementById("popup").style.display = "none";
+    document.getElementById("pop-up").classList.toggle("form-show");
+    document.getElementById("form-bg").style.display = "none";
 }
 
 
