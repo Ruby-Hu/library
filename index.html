@@ -12,10 +12,9 @@
         <h1>Library</h1>
     </header>
     
-    <div class="container">
+    <div class="container" id="container">
         <button class="add" onclick="openForm()">Add Book</button>
 
-        
         <form id="pop-up" class="pop-up">
             <h2>Add Book Info</h2>
             <input type="text" id="title" placeholder="Book Title" name="title" required>
@@ -26,17 +25,8 @@
 
         </form>
         
-
-        
-        <div class="shelf">
-            <div class="card">
-                <p class="title"></p>
-                <p class="author"></p>
-                <p class="pages"></p>
-                <button class="read"></button>
-            </div>
-            <div class="card"></div>
-            <div class="card"></div>
+        <div class="shelf" id="shelf">
+            
         </div>
     </div>
     <script src="script.js"></script>
