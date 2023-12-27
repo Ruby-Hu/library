@@ -63,18 +63,46 @@ function displayBooks() {
         let deleteBtn = document.createElement("button");
         deleteBtn.innerText = "Delete";
         card.appendChild(deleteBtn).className = "delete-button";
+
+        let bookIndex = myLibrary.findIndex(item => item.name === title.innerText);
+        card.setAttribute("data", bookIndex);
     });
 }
 
+const deleteBtn = document.getElementsByClassName("delete-button");
+
+function resetForm() {
+    document.getElementById("title").value = "";
+    document.getElementById("author").value = "";
+    document.getElementById("pages").value = "";
+    document.getElementById("read").checked = false;
+}
+
+function removeBook() {
+    let removeIndex = 
+    deleteBtn.addEventListener("click", () => {
+        myLibrary.splice()
+    });
+}
+
+function updateIndex() {}
 
 //toggle read or unread with button
 
 
+//Update shelf after submit
 submitBtn.addEventListener("click", (e) => {
+
+    //handling form submission
     e.preventDefault();
+    dialog.close();
+    
+    //dealing with library and display
     addBookToLibrary();
     shelf.innerText = "";
     displayBooks();
+
+    resetForm();
   });
 
   displayBooks();
