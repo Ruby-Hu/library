@@ -16,48 +16,38 @@ header {
 
 
 /* pop up form for adding books */
-.pop-up {
-    display: none;
-    z-index: 2;
-    background-color: aliceblue;
-    height: 360px;
-    width: 360px;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-
-.form-bg {
-    display: none;
-    z-index: 1;
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(118, 118, 118, 0.4);
-    position: fixed;
-    margin: 0;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+dialog {
+    width: 400px;
 }
 
-.form-show {
+form {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    text-align: center;
     align-items: center;
 }
 
 form button {
     width: 50%;
+    margin: 4px;
 }
 
 form input {
     width: 80%;
+    padding: 8px;
+    margin: 4px;
+}
+
+form .check {
+    margin: 6px;
+}
+
+#read {
+    width: 16px;
 }
 
 /* card for displaying books */
 .card {
     background-color: #fff;
+    margin: 24px;
 }

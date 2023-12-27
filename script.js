@@ -1,4 +1,9 @@
 const shelf = document.getElementById("shelf");
+const dialog = document.querySelector("dialog");
+const addBtn = document.getElementById("addBook");
+const closeBtn = document.getElementById("closeBtn");
+const submitBtn = document.getElementById("submitBtn");
+const readBtn = document.getElementsByClassName("read-button");
 
 function Book(name, author, pages, read) {
     this.name = name;
@@ -14,46 +19,62 @@ const pridePrejudice = new Book("Pride and Prejudice", "Jane Austen", 496, false
 const myLibrary = [harryPotter, breath, pridePrejudice];
 
 //pop up form display
-function openForm() {
-    document.getElementById("pop-up").classList.toggle("form-show");
-    document.getElementById("form-bg").style.display = "block";
-}
+addBtn.addEventListener("click", () => {
+    dialog.showModal();
+});
 
-function closeForm() {
-    document.getElementById("pop-up").classList.toggle("form-show");
-    document.getElementById("form-bg").style.display = "none";
-}
+closeBtn.addEventListener("click", () => {
+    dialog.close();
+});
 
 
 //process form submitted from user and add book info into library array
 function addBookToLibrary() {
-    
+    let checkBox = (document.getElementById("read").checked) ? true : false;
+    let newAdded = new Book(document.getElementById("title").value, document.getElementById("author").value, document.getElementById("pages").value, checkBox);
+    console.log(newAdded);
+    myLibrary.push(newAdded);
+    console.log(myLibrary);
 }
 
+
 //loop through array and display the books in cards
-myLibrary.forEach((book) => {
-    let card = document.createElement("div");
-    shelf.appendChild(card).className = "card";
+function displayBooks() {
+    myLibrary.forEach((book) => {
+        let card = document.createElement("div");
+        shelf.appendChild(card).className = "card";
+    
+        let title = document.createElement("p");
+        title.innerText = book.name;
+        card.appendChild(title).className = "title";
+    
+        let author = document.createElement("p");
+        author.innerText = "By " + book.author;
+        card.appendChild(author).className = "author";
+    
+        let pages = document.createElement("p");
+        pages.innerText = book.pages + " pages";
+        card.appendChild(pages).className = "pages";
+    
+        let read = document.createElement("button");
+        (book.read === true) ? (read.innerText = "Read") : (read.innerText = "Unread");
+        card.appendChild(read).className = "read-button";
 
-    let title = document.createElement("p");
-    title.innerText = book.name;
-    card.appendChild(title).className = "title";
+        let deleteBtn = document.createElement("button");
+        deleteBtn.innerText = "Delete";
+        card.appendChild(deleteBtn).className = "delete-button";
+    });
+}
 
-    let author = document.createElement("p");
-    author.innerText = "By " + book.author;
-    card.appendChild(author).className = "author";
-
-    let pages = document.createElement("p");
-    pages.innerText = book.pages + " pages";
-    card.appendChild(pages).className = "pages";
-
-    let read = document.createElement("button");
-    (book.read === true) ? (read.innerText = "Read") : (read.innerText = "Unread");
-    card.appendChild(read).className = "read-button";
-});
 
 //toggle read or unread with button
-const readBtn = document.getElementsByClassName("read-button");
 
 
-display();
+submitBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    addBookToLibrary();
+    shelf.innerText = "";
+    displayBooks();
+  });
+
+  displayBooks();

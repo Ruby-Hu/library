@@ -7,23 +7,28 @@
     <title>Library</title>
 </head>
 <body>
-    <div id="form-bg" class="form-bg"></div>
     <header>
         <h1>Library</h1>
     </header>
     
     <div class="container" id="container">
-        <button class="add" onclick="openForm()">Add Book</button>
 
-        <form id="pop-up" class="pop-up">
-            <h2>Add Book Info</h2>
-            <input type="text" id="title" placeholder="Book Title" name="title" required>
-            <input type="text" id="author" placeholder="Author" name="author" required>
-            <input type="number" id="pages" placeholder="Page Count" name="pages" required>
-            <button type="submit" id="submitBtn">Submit</button>
-            <button type="button" id="closeBtn" onclick="closeForm()">Cancel</button>
+        <button id="addBook">Add Book</button>
 
-        </form>
+        <dialog>
+            <form id="form">
+                <h2>Add Book Info</h2>
+                <input type="text" id="title" placeholder="Book Title" name="title" required>
+                <input type="text" id="author" placeholder="Author" name="author" required>
+                <input type="number" id="pages" placeholder="Page Count" name="pages" required>
+                <div class="check">
+                    <input type="checkbox" id="read">
+                    <label>Have you read the book?</label>
+                </div>
+                <button type="submit" id="submitBtn">Submit</button>
+                <button type="button" id="closeBtn">Cancel</button>
+            </form>
+        </dialog>
         
         <div class="shelf" id="shelf">
             
