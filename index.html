@@ -8,13 +8,13 @@
 </head>
 <body>
     <header>
-        <h1>Library</h1>
+        <h1>📚 Library</h1>
+        <div class="button-div">
+            <button id="addBook">Add Book</button>
+        </div>
     </header>
     
     <div class="container" id="container">
-
-        <button id="addBook">Add Book</button>
-
         <dialog>
             <form id="form">
                 <h2>Add Book Info</h2>
@@ -23,16 +23,14 @@
                 <input type="number" id="pages" placeholder="Page Count" name="pages" required>
                 <div class="check">
                     <input type="checkbox" id="read">
-                    <label>Have you read the book?</label>
+                    <label for="read">Have you read the book?</label>
                 </div>
                 <button type="submit" id="submitBtn">Submit</button>
                 <button type="button" id="closeBtn">Cancel</button>
             </form>
         </dialog>
         
-        <div class="shelf" id="shelf">
-            
-        </div>
+        <div class="shelf" id="shelf"></div>
     </div>
     <script src="script.js"></script>
 </body>

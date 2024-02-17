@@ -4,6 +4,7 @@ const addBtn = document.getElementById("addBook");
 const closeBtn = document.getElementById("closeBtn");
 const submitBtn = document.getElementById("submitBtn");
 const readBtn = document.getElementsByClassName("read-button");
+const deleteBtn = document.getElementsByClassName("delete-button");
 
 function Book(name, author, pages, read) {
     this.name = name;
@@ -12,13 +13,9 @@ function Book(name, author, pages, read) {
     this.read = read;
 }
 
-const harryPotter = new Book("Harry Potter and the Sorcerer's Stone", "J.K. Rowling", 320, true);
-const breath = new Book("When Breath Becomes Air", "Paul Kalanithi", 228, true);
-const pridePrejudice = new Book("Pride and Prejudice", "Jane Austen", 496, false);
+const myLibrary = [];
 
-const myLibrary = [harryPotter, breath, pridePrejudice];
-
-//pop up form display
+// pop up form display
 addBtn.addEventListener("click", () => {
     dialog.showModal();
 });
@@ -28,49 +25,54 @@ closeBtn.addEventListener("click", () => {
 });
 
 
-//process form submitted from user and add book info into library array
-function addBookToLibrary() {
-    let checkBox = (document.getElementById("read").checked) ? true : false;
-    let newAdded = new Book(document.getElementById("title").value, document.getElementById("author").value, document.getElementById("pages").value, checkBox);
-    console.log(newAdded);
-    myLibrary.push(newAdded);
-    console.log(myLibrary);
+// process form submitted from user and add book info into library array
+function addBookToLibrary(title, author, pages, read) {
+    const newBook = new Book(title, author, pages, read);
+    myLibrary.push(newBook);
 }
 
 
 //loop through array and display the books in cards
 function displayBooks() {
-    myLibrary.forEach((book) => {
-        let card = document.createElement("div");
-        shelf.appendChild(card).className = "card";
+    shelf.innerText = "";
+
+    myLibrary.forEach((book, index) => {
+        const card = document.createElement("div");
+        card.dataset.index = index;
     
-        let title = document.createElement("p");
+        const title = document.createElement("h3");
         title.innerText = book.name;
-        card.appendChild(title).className = "title";
-    
-        let author = document.createElement("p");
-        author.innerText = "By " + book.author;
-        card.appendChild(author).className = "author";
-    
-        let pages = document.createElement("p");
-        pages.innerText = book.pages + " pages";
-        card.appendChild(pages).className = "pages";
-    
-        let read = document.createElement("button");
-        (book.read === true) ? (read.innerText = "Read") : (read.innerText = "Unread");
-        card.appendChild(read).className = "read-button";
-
-        let deleteBtn = document.createElement("button");
+        
+        const author = document.createElement("p");
+        author.innerText = `By ${book.author}`;
+        
+        const pages = document.createElement("p");
+        pages.innerText = `${book.pages} pages`;
+        
+        const readBtn = document.createElement("button");
+        readBtn.innerText = book.read ? "Read" : "Unread";
+        readBtn.classList.add(book.read ? "btn-read" : "btn-unread");
+        readBtn.addEventListener("click", () => toggleRead(index));
+        
+        const deleteBtn = document.createElement("button");
         deleteBtn.innerText = "Delete";
-        card.appendChild(deleteBtn).className = "delete-button";
+        deleteBtn.addEventListener("click", () => removeBook(index));
 
-        let bookIndex = myLibrary.findIndex(item => item.name === title.innerText);
-        card.setAttribute("data", bookIndex);
+        const buttonGroup = document.createElement("div");
+        const infoGroup = document.createElement("div");
+
+        shelf.appendChild(card).className = "card";
+        card.appendChild(infoGroup).className = "info-group"
+        card.appendChild(buttonGroup).className = "button-group";
+        infoGroup.appendChild(title).className = "title";
+        infoGroup.appendChild(author).className = "author";
+        infoGroup.appendChild(pages).className = "pages";
+        buttonGroup.appendChild(readBtn);
+        buttonGroup.appendChild(deleteBtn).className = "delete-button";
     });
 }
 
-const deleteBtn = document.getElementsByClassName("delete-button");
-
+// reset form after each fill
 function resetForm() {
     document.getElementById("title").value = "";
     document.getElementById("author").value = "";
@@ -78,17 +80,15 @@ function resetForm() {
     document.getElementById("read").checked = false;
 }
 
-function removeBook() {
-    let removeIndex = 
-    deleteBtn.addEventListener("click", () => {
-        myLibrary.splice()
-    });
+function removeBook(index) {
+    myLibrary.splice(index, 1);
+    displayBooks();
 }
 
-function updateIndex() {}
-
-//toggle read or unread with button
-
+function toggleRead(index) {
+    myLibrary[index].read = !myLibrary[index].read;
+    displayBooks();
+} 
 
 //Update shelf after submit
 submitBtn.addEventListener("click", (e) => {
@@ -98,11 +98,19 @@ submitBtn.addEventListener("click", (e) => {
     dialog.close();
     
     //dealing with library and display
-    addBookToLibrary();
+    const title = document.getElementById("title").value;
+    const author = document.getElementById("author").value;
+    const pages = document.getElementById("pages").value;
+    const read = document.getElementById("read").checked;
+    addBookToLibrary(title, author, pages, read);
     shelf.innerText = "";
     displayBooks();
 
     resetForm();
-  });
+});
 
-  displayBooks();
+addBookToLibrary("Harry Potter and the Sorcerer's Stone", "J.K. Rowling", 320, true);
+addBookToLibrary("When Breath Becomes Air", "Paul Kalanithi", 228, true);
+addBookToLibrary("Pride and Prejudice", "Jane Austen", 496, false);
+
+displayBooks();
