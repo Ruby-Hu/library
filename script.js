@@ -72,6 +72,44 @@ function displayBooks() {
     });
 }
 
+// validating form
+const title = document.getElementById("title");
+const author = document.getElementById("author");
+const pages = document.getElementById("pages");
+const err = document.getElementsByClassName("error")
+const titleErr = document.querySelector("#title + span.error")
+const authorErr = document.querySelector("#author + span.error")
+const pagesErr = document.querySelector("#pages + span.error")
+const form = document.getElementById("form");
+
+title.addEventListener("input", (event) => {
+    if (title.validity.valid) {
+        err.textContent = "";
+        err.className = "error";
+    } else {
+        showError();
+    }
+});
+
+form.addEventListener("submit", (event) => {
+    if ((!title.validity.valid) && (!author.validity.valid) && (!pages.validity.valid)) {
+        showError();
+        event.preventDefault;
+    }
+});
+
+function showError() {
+    if (title.validity.valueMissing || author.validity.valueMissing || pages.validity.valueMissing) {
+        err.innerText = "This field can't be empty.";
+    } else if (title.validity.typeMismatch || author.validity.typeMismatch) {
+        titleErr.textContent = "This field is text only.";
+    } else if (pages.validity.typeMismatch) {
+        pagesErr.textContent = "Please enter a number.";
+    }
+
+    err.className = "error active";
+}
+
 // reset form after each fill
 function resetForm() {
     document.getElementById("title").value = "";
@@ -92,6 +130,7 @@ function toggleRead(index) {
 
 //Update shelf after submit
 submitBtn.addEventListener("click", (e) => {
+
 
     //handling form submission
     e.preventDefault();
