@@ -158,6 +158,6 @@ input:invalid {
     box-sizing: border-box;
 }
 
-.error.active {
+.error .active {
     padding: 0.3em;
 }
